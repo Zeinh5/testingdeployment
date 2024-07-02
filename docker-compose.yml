@@ -6,7 +6,7 @@ services:
     container_name: mysql
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: loginapi
+      MYSQL_DATABASE: defaultdb  # Ensure this matches the database name in Aiven MySQL
       MYSQL_PASSWORD: root
     ports:
       - "3307:3306"
@@ -18,10 +18,11 @@ services:
       context: .
       dockerfile: Dockerfile
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/loginapi
-      SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: root
-
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-api-mysql-api.e.aivencloud.com:21759/defaultdb
+      SPRING_DATASOURCE_USERNAME: avnadmin
+      SPRING_DATASOURCE_PASSWORD: AVNS_D-HEeoh54hmvlOlJ5mW
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: com.mysql.cj.jdbc.Driver
+      SERVER_PORT: "8080"  # Use SERVER_PORT instead of server.port for Docker
     ports:
       - "8085:8080"
     depends_on:
